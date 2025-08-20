@@ -18,6 +18,7 @@
 ## File Organization Structure
 
 ```
+.notes/issues_recent_100/      # collection of 100 most recent issues
 .notes/{issue_number}/
 ├── issue-summary.md           # Captured issue details
 ├── implementation-plan.md     # High-level technical approach

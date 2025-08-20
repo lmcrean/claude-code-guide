@@ -40,7 +40,8 @@
 - Navigate to `.notes/` directory
 - Use GitHub API/tools to fetch recent issues
 - Fetch a list of recent issues on a list with Issue title; labels; comment count; date posted
-- Fetch 100 most recent issues in `.notes/issues_recent_100/{issue number}.md` with metadata at the top (linked PR's, labels) issue description and comments at the bottom/
+- Fetch 100 most recent issues in `.notes/issues_recent_100/{issue number}.md` with metadata at the top (linked PR's, labels) issue description and comments at the bottom. Ensure comments are recorded as they can help understand the issue.
+- Also include a summative `.notes/issues_recent_100/issues_list.md` with issue title, labels, comment count, date posted.
 
 Human selects issue at this point. From here on we work in `.notes/{issue_number}/`
 

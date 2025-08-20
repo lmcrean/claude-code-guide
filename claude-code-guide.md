@@ -77,7 +77,8 @@
 - **→ CHECKPOINT: Human dev review once complete**
 
 ### 8. Pull Request Drafting
+- Record the final diff in `final-changes.diff` so you understand the changes to the codebase
 - Create `pr-draft.md` with complete PR content
-- Include: Problem statement, solution overview, implementation details
+- Include: Problem statement, solution overview, implementation details any important test results, guide for admin to validate
 - Add testing info, breaking changes, checklist
 - Make it comprehensive and reviewable

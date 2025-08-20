@@ -121,3 +121,10 @@ Gracefully falls back to existing completion behavior when no cached entries mat
 ## Breaking Changes
 None. Purely additive enhancement with minimal memory overhead from prefix indexing.
 ```
+
+
+## example prompts
+
+select 5460 and proceed with step 1.2 ---> review the issue in .notes/
+
+step 5 --- actually plan the diffs in .notes/{issue}/phases/phase-1-diff.md phase-2-diff etc.

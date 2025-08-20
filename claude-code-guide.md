@@ -34,7 +34,15 @@
 
 ## Detailed Workflow Steps
 
-### 1. Issue Discovery & Documentation
+### 1.1 Issue List retrieval
+- Navigate to `.notes/` directory
+- Use GitHub API/tools to fetch recent issues
+- Fetch a list of recent issues on a list with Issue title; labels; comment count; date posted
+- Fetch 100 most recent issues in `.notes/issues_recent_100/{issue number}.md` with metadata at the top (linked PR's, labels) issue description and comments at the bottom/
+
+Human selects issue at this point.
+
+### 1.2 Issue Selection & Documentation
 - Navigate to `.notes/` directory
 - Use GitHub API/tools to fetch recent issues
 - Create `.notes/{issue_number}/issue-summary.md`

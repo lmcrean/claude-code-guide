@@ -17,19 +17,19 @@
 
 ## File Organization Structure
 
-```
+```bash
 .notes/issues_recent_100/      # collection of 100 most recent issues
 .notes/{issue_number}/
 ├── issue-summary.md           # Captured issue details
 ├── implementation-plan.md     # High-level technical approach
-├── viability-assessment.md    # Complexity, impact, time estimates
-├── phases/                    # Implementation phases
+├── viability-assessment.md    # Complexity, impact, time estimates -- how achieveable is this? Have we bitten off more than we can chew?
+├── phases/                    # Implementation phases with accurate diffs
 │   ├── phase-1-diff.md       
 │   ├── phase-2-diff.md       
 │   └── ...
 ├── testing/                   # Test files and validation
-│   ├── reproduce-issue.{ts,mjs,py}
-│   ├── test-{feature}.{ts,mjs,py}
+│   ├── reproduce-issue.{ts,mjs,py  etc depending on codebase lang} # reproduces original issue from ticker
+│   ├── test-{feature}.{ts,mjs,py etc depending on codebase lang}
 │   └── validation-results.md
 └── pr-draft.md               # Final pull request draft
 ```

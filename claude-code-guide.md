@@ -3,6 +3,7 @@
 ## Quick Reference
 ```
 1. Fetch & document issues          → .notes/{issue}/issue-summary.md
+   → HUMAN CHECKPOINT: select best issue
 2. Plan implementation             → implementation-plan.md  
 3. Reproduce the issue             → testing/reproduce-issue.{ext}
 4. Assess viability               → viability-assessment.md
@@ -40,12 +41,11 @@
 - Fetch a list of recent issues on a list with Issue title; labels; comment count; date posted
 - Fetch 100 most recent issues in `.notes/issues_recent_100/{issue number}.md` with metadata at the top (linked PR's, labels) issue description and comments at the bottom/
 
-Human selects issue at this point.
+Human selects issue at this point. From here on we work in `.notes/{issue_number}/`
 
 ### 1.2 Issue Selection & Documentation
 - Navigate to `.notes/` directory
-- Use GitHub API/tools to fetch recent issues
-- Create `.notes/{issue_number}/issue-summary.md`
+- Use GitHub API/tools to Create `.notes/{issue_number}/issue-summary.md`
 - Capture: title, description, comments, linked PRs, labels, metadata
 
 ### 2. Implementation Planning  

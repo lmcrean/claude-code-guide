@@ -90,3 +90,32 @@ Human selects issue at this point. From here on we work in `.notes/{issue_number
 - Include: Problem statement, solution overview, implementation details any important test results, guide for admin to validate
 - Add testing info, breaking changes, checklist
 - Make it comprehensive and reviewable
+
+
+Try and avoid verbosity in the description for example like this minimal 4-part structure:
+
+```
+Fixes #1474 - completion now works when typing partial subphrases like "open" for cached entries like "open webpage".
+
+## Problem
+When cache contains multi-part subphrases (e.g., "open webpage" → "browser.openWebPage"), typing just "open" returns no completions.
+
+## Solution
+Added prefix-based transform indexing to enable partial subphrase completion:
+
+- **transforms.ts**: Added prefix indexing for compound keys and `getByPrefix()` method
+- **store.ts**: Added `getTransformsByPrefix()` API for cross-namespace prefix search  
+- **requestCompletion.ts**: Integrated prefix completions into completion flow
+
+## Testing
+1. Execute: `open bbc webpage` (populates cache)
+2. Type: `open` + TAB
+3. Expected: Shows "open webpage" completion
+
+Works for left-to-right partial prefixes of cached entries (e.g., if "open bbc webpage" is cached, typing "open" completes to "open bbc webpage", if "play music from spotify" is cached, typing "play music" completes to "play music from spotify").
+
+Gracefully falls back to existing completion behavior when no cached entries match the prefix.
+
+## Breaking Changes
+None. Purely additive enhancement with minimal memory overhead from prefix indexing.
+```

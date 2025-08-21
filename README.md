@@ -125,8 +125,8 @@ None. Purely additive enhancement with minimal memory overhead from prefix index
 
 ## example prompts
 
-select 5460 and proceed with step 1.2 ---> review the issue in .notes/
+select 5460 and proceed with step 1.2 ---> review the issue in .notes/ and gather in .notes/5460/*
 
-step 5 ----> actually plan the diffs in .notes/{issue}/phases/phase-1-diff.md phase-2-diff etc.
+step 5 ----> actually plan the diffs in .notes/{issue}/{i_number}/phases/phase-1-diff.md phase-2-diff etc.
 
-review the phases -----> review .notes/{issue}/phases/*
+review the phases -----> review .notes/{issue}/{i_number}/phases/*

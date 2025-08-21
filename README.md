@@ -19,7 +19,7 @@
 
 ```bash
 .notes/issues_recent_100/      # collection of 100 most recent issues
-.notes/{issue_number}/
+.notes/{issue_number}/{i_number}  # e.g. .notes/1434/i1 stands for 1st iteration of solving issue 1434; .notes/232/i2 = issue 232; 2nd iteration
 ├── issue-summary.md           # Captured issue details
 ├── implementation-plan.md     # High-level technical approach
 ├── viability-assessment.md    # Complexity, impact, time estimates -- how achieveable is this? Have we bitten off more than we can chew?
@@ -127,4 +127,6 @@ None. Purely additive enhancement with minimal memory overhead from prefix index
 
 select 5460 and proceed with step 1.2 ---> review the issue in .notes/
 
-step 5 --- actually plan the diffs in .notes/{issue}/phases/phase-1-diff.md phase-2-diff etc.
+step 5 ----> actually plan the diffs in .notes/{issue}/phases/phase-1-diff.md phase-2-diff etc.
+
+review the phases -----> review .notes/{issue}/phases/*

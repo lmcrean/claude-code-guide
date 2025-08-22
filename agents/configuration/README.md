@@ -30,7 +30,7 @@ The configuration prevents agents from:
 - `git push` operations  
 - `git commit --amend`
 - `git push --force`
-- Any automated version control changes
+- Any version control changes without human approval
 
 #### Human Oversight Requirements
 Agents will be blocked from:
@@ -76,7 +76,8 @@ The system ensures:
 - Team collaboration enabled through shared artifacts
 
 ### Process Integrity
-- Clear separation between agent automation and human decision-making
+- Clear separation between agent work and human decision-making
+- Human controls all workflow progression between agents
 - Quality gates enforced at critical points
 - Consistent workflow across all enterprise tickets
 

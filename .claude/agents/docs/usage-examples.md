@@ -16,7 +16,7 @@ cd .notes/1234/i1
 # 1. Extract issue data
 claude --agent pull-agent "Extract all data for issue #1234"
 
-# 2. Create implementation plan  
+# 2. Create implementation plan
 claude --agent plan-agent "Create implementation plan based on pull/ data"
 
 # 3. Review the plan

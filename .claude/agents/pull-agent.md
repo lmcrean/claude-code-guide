@@ -27,7 +27,7 @@ Maintains the entire `pull/` directory structure within the `.notes/{issue}{iter
 .notes/{issue}{iteration}/pull/
 ├── github/
 │   ├── issue.md           # Raw issue data
-│   ├── pr.md              # Raw PR data  
+│   ├── pr.md              # Raw PR data
 │   ├── comments.md        # All comments chronologically
 │   └── pr-diffs/          # PR diff files
 ├── code/
@@ -49,56 +49,3 @@ The agent automatically uses the GitHub token from `.env` file in the project ro
 API_GITHUB_TOKEN=secretkey
 ```
 This provides increased GitHub API rate limits for data extraction operations.
-
-## Workflow
-1. **Issue Extraction**: Pull complete issue data including metadata
-2. **PR Data Collection**: Extract PR descriptions, comments, and relationships
-3. **Diff Tracking**: Capture and organize code changes at different stages
-4. **State Maintenance**: Keep `.notes/{issue}{iteration}/pull/` directory updated with latest sources of truth
-5. **Data Organization**: Structure all extracted data for consumption by other agents
-
-## Output Format
-All outputs are raw data files in markdown format with clear structure:
-- GitHub data: Structured markdown with metadata headers
-- Diffs: Standard git diff format
-- Comments: Chronological with author and timestamp information
-
-## Interaction with Other Agents
-- Provides source of truth data that other agents reference
-- Does not consume outputs from other agents
-- Updates `.notes/{issue}{iteration}/pull/code/pushed.diff` when hardcode-agent completes implementation
-- **No direct agent calls**: Only responds to human commands
-
-## Input Validation
-```bash
-# pull-agent has minimal prerequisites - extracts from external sources
-# Validates access to GitHub API and git repository
-# No dependency on other agent outputs
-```
-
-## Key Commands
-```bash
-# Determine context first
-ISSUE_ITERATION="123a"  # From human input or auto-detection
-BASE_PATH=".notes/${ISSUE_ITERATION}"
-
-# Extract issue data
-mkdir -p "${BASE_PATH}/pull/github"
-gh issue view {issue_number} --json title,body,comments,labels > "${BASE_PATH}/pull/github/issue.json"
-
-# Get PR diffs
-mkdir -p "${BASE_PATH}/pull/github/pr-diffs"
-gh pr diff {pr_number} > "${BASE_PATH}/pull/github/pr-diffs/pr-{pr_number}.diff"
-
-# Track git states
-mkdir -p "${BASE_PATH}/pull/code/"
-git diff HEAD > "${BASE_PATH}/pull/code/unstaged.diff"
-git diff --cached > "${BASE_PATH}/pull/code/staged.diff"
-git diff origin/main..HEAD > "${BASE_PATH}/pull/code/pushed.diff"
-```
-
-## Success Criteria
-- All relevant data is extracted and stored in `.notes/{issue}{iteration}/pull/` directory
-- Data is organized and accessible to other agents
-- No data interpretation or analysis is performed
-- Sources of truth are maintained and updated accurately

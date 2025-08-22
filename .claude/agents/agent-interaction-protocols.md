@@ -102,7 +102,7 @@ pull/
 ### 5. Final Review (review-agent)
 ```bash
 # review-agent final workflow
-1. Read pull/code/final/ for implemented changes
+1. Read pull/code/staged/ for implemented changes
 2. Review implementation against requirements
 3. Create implementation-review.md → review/
 4. Provide final approval/rejection

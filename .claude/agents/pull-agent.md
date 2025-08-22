@@ -20,10 +20,12 @@ Data extraction and source of truth maintenance for enterprise repository ticket
 **No interpretation** - This agent only extracts and organizes raw data. It does not analyze, interpret, or make recommendations about the data.
 
 ## File Structure Responsibilities
-Maintains the entire `pull/` directory structure:
+Maintains the entire `pull/` directory structure within the `.notes/{issue}{iteration}/` system.
+
+**CRITICAL**: Always work within `.notes/{issue}{iteration}/pull/` structure. See `.claude/agents/file-structure.md` for complete specification.
 
 ```
-pull/
+.notes/{issue}{iteration}/pull/
 ├── github/
 │   ├── issue.md           # Raw issue data
 │   ├── pr.md              # Raw PR data  
@@ -47,7 +49,7 @@ pull/
 1. **Issue Extraction**: Pull complete issue data including metadata
 2. **PR Data Collection**: Extract PR descriptions, comments, and relationships
 3. **Diff Tracking**: Capture and organize code changes at different stages
-4. **State Maintenance**: Keep `pull/` directory updated with latest sources of truth
+4. **State Maintenance**: Keep `.notes/{issue}{iteration}/pull/` directory updated with latest sources of truth
 5. **Data Organization**: Structure all extracted data for consumption by other agents
 
 ## Output Format
@@ -59,7 +61,7 @@ All outputs are raw data files in markdown format with clear structure:
 ## Interaction with Other Agents
 - Provides source of truth data that other agents reference
 - Does not consume outputs from other agents
-- Updates `pull/code/final/` when hardcode-agent completes implementation
+- Updates `.notes/{issue}{iteration}/pull/code/final/` when hardcode-agent completes implementation
 - **No direct agent calls**: Only responds to human commands
 
 ## Input Validation
@@ -71,20 +73,27 @@ All outputs are raw data files in markdown format with clear structure:
 
 ## Key Commands
 ```bash
+# Determine context first
+ISSUE_ITERATION="123a"  # From human input or auto-detection
+BASE_PATH=".notes/${ISSUE_ITERATION}"
+
 # Extract issue data
-gh issue view {issue_number} --json title,body,comments,labels > pull/github/issue.json
+mkdir -p "${BASE_PATH}/pull/github"
+gh issue view {issue_number} --json title,body,comments,labels > "${BASE_PATH}/pull/github/issue.json"
 
 # Get PR diffs
-gh pr diff {pr_number} > pull/github/pr-diffs/pr-{pr_number}.diff
+mkdir -p "${BASE_PATH}/pull/github/pr-diffs"
+gh pr diff {pr_number} > "${BASE_PATH}/pull/github/pr-diffs/pr-{pr_number}.diff"
 
 # Track git states
-git diff HEAD > pull/code/unstaged/unstaged.diff
-git diff --cached > pull/code/staged/staged.diff
-git diff origin/main..HEAD > pull/code/pushed/changes.diff
+mkdir -p "${BASE_PATH}/pull/code/{unstaged,staged,pushed}"
+git diff HEAD > "${BASE_PATH}/pull/code/unstaged/unstaged.diff"
+git diff --cached > "${BASE_PATH}/pull/code/staged/staged.diff"
+git diff origin/main..HEAD > "${BASE_PATH}/pull/code/pushed/changes.diff"
 ```
 
 ## Success Criteria
-- All relevant data is extracted and stored in `pull/` directory
+- All relevant data is extracted and stored in `.notes/{issue}{iteration}/pull/` directory
 - Data is organized and accessible to other agents
 - No data interpretation or analysis is performed
 - Sources of truth are maintained and updated accurately

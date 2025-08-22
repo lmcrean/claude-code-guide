@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:docs.anthropic.com)",
       "Bash(mkdir:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(claude agents --verbose)"
     ],
     "deny": [],
     "ask": []

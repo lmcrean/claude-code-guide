@@ -5,8 +5,9 @@ A comprehensive 4-agent system for managing enterprise repository tickets with s
 ## Quick Start
 
 ```bash
-# 0. Configure repository (one-time setup)
+# 0. Configure repository (one-time human setup)
 cp agents/configuration/settings.local.json ./settings.local.json
+# Human manually adds .gitignore entries (agents cannot modify .gitignore)
 cat agents/configuration/.gitignore-requirements.md >> .gitignore
 
 # 1. Copy template for new ticket

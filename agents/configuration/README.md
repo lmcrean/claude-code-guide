@@ -47,8 +47,10 @@ The system ensures:
 
 ## Setup Instructions
 
-1. **Copy .gitignore entries** to your repository's `.gitignore`:
+1. **Manually add .gitignore entries** to your repository's `.gitignore`:
    ```bash
+   # Human manually adds entries from .gitignore-requirements.md
+   # Agents cannot modify .gitignore - human control only
    cat agents/configuration/.gitignore-requirements.md >> .gitignore
    ```
 

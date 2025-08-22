@@ -38,11 +38,18 @@ Maintains the entire `pull/` directory structure within the `.notes/{issue}{iter
 ```
 
 ## Tools and Capabilities
-- GitHub API access for issues, PRs, comments
+- GitHub API access for issues, PRs, comments (uses API_GITHUB_TOKEN from .env for higher rate limits)
 - Git operations for diff extraction
 - File system operations for organizing data
 - Web scraping capabilities for GitHub data
 - Bash commands for git status, diff operations
+
+## Environment Setup
+The agent automatically uses the GitHub token from `.env` file in the project root:
+```
+API_GITHUB_TOKEN=secretkey
+```
+This provides increased GitHub API rate limits for data extraction operations.
 
 ## Workflow
 1. **Issue Extraction**: Pull complete issue data including metadata

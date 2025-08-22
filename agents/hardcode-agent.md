@@ -19,7 +19,8 @@ References planning data and contributes implementation data:
 
 **Consumes from plan/:**
 - `plan/code/implementation-plan.md` - Technical approach
-- `plan/code/phases/` - Step-by-step implementation guide
+- `plan/code/phases/phases.md` - Phase overview and validation strategy
+- `plan/code/phases/phase1.diff, phase2.diff, phase3.diff` - Exact diffs to implement
 - `plan/code/viability-assessment.md` - Implementation constraints
 
 **Updates in pull/:**
@@ -32,11 +33,18 @@ References planning data and contributes implementation data:
 ### 1. Phase-by-Phase Implementation
 ```markdown
 For each phase in plan/code/phases/:
-1. Read phase requirements and acceptance criteria
-2. Implement code changes for that phase
-3. Run tests and validate functionality
-4. Update pull/code/staged/ with current progress
-5. Move to next phase only after current phase validation
+1. Read phases.md to understand validation requirements
+2. Apply the specific phaseN.diff for current phase
+3. Validate implementation meets phase criteria
+4. Run tests and verify functionality works
+5. Update pull/code/staged/ with current progress
+6. STOP and validate before moving to next phase
+
+Phase Implementation Process:
+- Apply phase1.diff → validate → apply phase2.diff → validate → apply phase3.diff → validate
+- Each phase builds incrementally on the previous
+- Must pass all validation criteria before proceeding
+- Document any deviations from planned diffs
 ```
 
 ### 2. Progress Tracking

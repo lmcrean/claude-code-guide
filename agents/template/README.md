@@ -28,8 +28,12 @@ cp -r agents/template/.notes/{issue_number}/{iteration} .notes/{actual_issue_num
 │   │   └── comment-responses.md
 │   └── code/              # Implementation plans
 │       ├── implementation-plan.md
-│       ├── phases/
-│       └── viability-assessment.md
+│       ├── viability-assessment.md
+│       └── phases/
+│           ├── phases.md      # Phase overview and validation strategy
+│           ├── phase1.diff    # Exact diff for phase 1
+│           ├── phase2.diff    # Exact diff for phase 2
+│           └── phase3.diff    # Exact diff for phase 3
 └── review/                # review-agent analysis outputs
     ├── solution-review.md
     ├── implementation-review.md

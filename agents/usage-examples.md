@@ -69,9 +69,10 @@ plan/
     ├── implementation-plan.md    # Root cause: string matching logic
     ├── viability-assessment.md  # Low complexity, high impact
     └── phases/
-        ├── phase-1-plan.md      # Reproduce the issue
-        ├── phase-2-plan.md      # Fix matching algorithm  
-        └── phase-3-plan.md      # Add tests and validation
+        ├── phases.md            # Phase overview and validation strategy
+        ├── phase1.diff          # Diff to reproduce issue + add tests
+        ├── phase2.diff          # Diff to fix matching algorithm
+        └── phase3.diff          # Diff for edge cases and cleanup
 ```
 
 #### Step 3: Plan Review (review-agent)
@@ -137,7 +138,8 @@ claude --agent plan-agent "Plan dark mode toggle implementation"
 # - Vuex state management approach
 # - Component modification strategy  
 # - CSS variable system design
-# Result: plan/code/phases/ shows 6 implementation phases
+# Result: plan/code/phases/phases.md shows phase overview and validation strategy
+# Result: plan/code/phases/phase1.diff, phase2.diff, etc. show exact diffs to implement
 
 # 3. Initial review
 claude --agent review-agent "Review dark mode implementation plan"

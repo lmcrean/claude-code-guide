@@ -25,8 +25,10 @@ plan/
     ├── implementation-plan.md    # High-level technical approach
     ├── viability-assessment.md   # Complexity, impact, time estimates
     └── phases/
-        ├── phase-1-plan.md       # Detailed phase breakdown
-        ├── phase-2-plan.md
+        ├── phases.md             # Overview of all phases and validation strategy
+        ├── phase1.diff           # Exact diff for phase 1 implementation
+        ├── phase2.diff           # Exact diff for phase 2 implementation
+        ├── phase3.diff           # Exact diff for phase 3 implementation
         └── ...
 ```
 
@@ -73,27 +75,75 @@ Exclusively references data from the `pull/` directory:
 ```
 
 ### Phase Planning Structure
+
+#### phases.md Overview
 ```markdown
-# Phase {N} - {Phase Description}
+# Implementation Phases - Issue #{issue_number}
 
-## Objective
-[What this phase accomplishes]
+## Phase Overview
+| Phase | Description | Dependencies | Validation Method |
+|-------|-------------|--------------|-------------------|
+| 1 | Setup and foundation | None | Unit tests pass |
+| 2 | Core implementation | Phase 1 | Integration tests + manual validation |
+| 3 | Edge cases and cleanup | Phase 2 | Full test suite + performance check |
 
-## Technical Changes
-[Specific code changes]
+## Phase Progression Rules
+- Each phase must pass validation before proceeding
+- Validation includes: tests passing, code review criteria met, acceptance criteria fulfilled
+- If validation fails, address issues before moving to next phase
+- Each phase builds incrementally on previous phases
 
-## Acceptance Criteria
-- [ ] Criterion 1
-- [ ] Criterion 2
+## Validation Strategy
+### Phase 1 Validation
+- [ ] All new unit tests pass
+- [ ] No existing tests broken
+- [ ] Code compiles/builds successfully
+- [ ] Basic functionality works manually
 
-## Test Strategy
-[How to validate this phase]
+### Phase 2 Validation  
+- [ ] Integration tests pass
+- [ ] Core feature works end-to-end
+- [ ] Performance within acceptable bounds
+- [ ] No security vulnerabilities introduced
 
-## Dependencies
-[Prerequisites for this phase]
+### Phase 3 Validation
+- [ ] Full test suite passes
+- [ ] All edge cases handled
+- [ ] Documentation updated
+- [ ] Ready for review/deployment
+```
 
-## Estimated Effort
-[Time/complexity estimate]
+#### Individual Phase Diffs
+Each phaseN.diff contains the exact code changes for that phase:
+- **phase1.diff**: Foundation changes (setup, basic structure, initial tests)
+- **phase2.diff**: Core implementation (main functionality, primary use cases)
+- **phase3.diff**: Polish and edge cases (error handling, edge cases, cleanup)
+
+#### Phase Validation Requirements
+```markdown
+# Phase N Validation Checklist
+
+## Pre-Implementation Validation
+- [ ] Previous phase completed and validated
+- [ ] Dependencies resolved
+- [ ] Environment prepared
+
+## Implementation Validation
+- [ ] Diff applied successfully
+- [ ] Code compiles/builds without errors
+- [ ] New functionality works as expected
+
+## Post-Implementation Validation  
+- [ ] All tests pass (unit, integration, e2e as applicable)
+- [ ] No regressions in existing functionality
+- [ ] Performance metrics within bounds
+- [ ] Code review criteria met
+- [ ] Documentation updated if needed
+
+## Acceptance Criteria Met
+- [ ] Specific criteria for this phase fulfilled
+- [ ] Manual testing completed
+- [ ] Ready to proceed to next phase
 ```
 
 ## GitHub Response Planning

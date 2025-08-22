@@ -7,7 +7,7 @@
       "enabled": true,
       "command": "bash -c 'if echo \"$CLAUDE_USER_PROMPT\" | grep -E \"git (commit|push)\"; then echo \"ERROR: Git commit/push operations are not allowed for enterprise agents. Human oversight required for version control operations.\"; exit 1; fi'"
     }
-  },yeah
+  },
   
   "tools": {
     "bash": {

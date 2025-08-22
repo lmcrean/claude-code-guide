@@ -1,3 +1,9 @@
+---
+name: "plan-agent"
+description: "Strategic planning and GitHub response coordination for enterprise repository tickets"
+tools: ["*"]
+---
+
 # Plan Agent
 
 ## Role

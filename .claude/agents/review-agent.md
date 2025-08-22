@@ -1,3 +1,9 @@
+---
+name: "review-agent"
+description: "Solution viability analysis and implementation review for enterprise repository tickets"
+tools: ["*"]
+---
+
 # Review Agent
 
 ## Role

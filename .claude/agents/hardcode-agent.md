@@ -1,3 +1,9 @@
+---
+name: "hardcode-agent"
+description: "Code implementation and execution for enterprise repository tickets"
+tools: ["*"]
+---
+
 # Hardcode Agent
 
 ## Role

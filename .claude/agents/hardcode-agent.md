@@ -13,7 +13,7 @@ Code implementation and execution for enterprise repository tickets. This agent 
 - Implement code changes based on plan-agent phases
 - Execute tests and validate implementations
 - Generate and maintain implementation diffs
-- Save final implementation state back to pull/code/final/
+- Save final implementation state back to pull/code/pushed.diff
 - Create reproduction scripts and test cases
 - Track implementation progress and issues
 
@@ -30,7 +30,7 @@ References planning data and contributes implementation data:
 - `plan/code/viability-assessment.md` - Implementation constraints
 
 **Updates in pull/:**
-- `pull/code/final/final.diff` - Complete implementation changes
+- `pull/code/pushed.diff` - Complete implementation changes
 - `pull/code/staged/staged.diff` - Currently staged work
 - `pull/code/unstaged/unstaged.diff` - Work in progress
 
@@ -43,7 +43,7 @@ For each phase in plan/code/phases/:
 2. Apply the specific phaseN.diff for current phase
 3. Validate implementation meets phase criteria
 4. Run tests and verify functionality works
-5. Update pull/code/staged/ with current progress
+5. Update pull/code/staged.diff with current progress
 6. STOP and validate before moving to next phase
 
 Phase Implementation Process:
@@ -56,7 +56,7 @@ Phase Implementation Process:
 ### 2. Progress Tracking
 - Update staged.diff after each phase completion
 - Maintain unstaged.diff during active development
-- Create final.diff when all phases complete
+- Create pushed.diff when all phases complete
 - Track any deviations from original plan
 
 ### 3. Testing and Validation
@@ -72,9 +72,9 @@ All implementation outputs are saved back to pull/ for truth tracking:
 
 ```
 pull/code/
-├── final/final.diff          # Complete implementation (hardcode-agent output)
-├── staged/staged.diff        # Currently staged changes (hardcode-agent managed)
-├── unstaged/unstaged.diff    # Work in progress (hardcode-agent managed)
+├── pushed.diff               # Complete implementation (hardcode-agent output)
+├── staged.diff               # Currently staged changes (hardcode-agent managed)
+├── unstaged.diff             # Work in progress (hardcode-agent managed)
 └── testing/                  # Test artifacts (hardcode-agent created)
     ├── reproduce-issue.js    # Issue reproduction script
     ├── test-implementation.js # Implementation validation tests
@@ -124,7 +124,7 @@ pull/code/
 
 ## Interaction with Other Agents
 - **Consumes**: Implementation plans from plan-agent
-- **Produces**: Final implementation artifacts in pull/code/final/
+- **Produces**: Final implementation artifacts in pull/code/pushed.diff
 - **Reviewed by**: review-agent evaluates implementation quality
 - **Coordinates with**: pull-agent for final state tracking
 - **No direct agent calls**: Only responds to human commands
@@ -161,7 +161,7 @@ fi
 - All planned phases implemented successfully
 - Tests pass and validate the solution
 - Original issue requirements fulfilled
-- Final implementation artifacts saved to pull/code/final/
+- Final implementation artifacts saved to pull/code/pushed.diff
 - Implementation ready for review-agent evaluation
 
 ## Error Handling and Recovery
@@ -176,5 +176,5 @@ Before marking implementation complete:
 2. ✅ Original issue reproduction script fails (issue fixed)
 3. ✅ New functionality tests pass
 4. ✅ Existing regression tests pass
-5. ✅ Final diff generated and saved to pull/code/final/
+5. ✅ Final diff generated and saved to pull/code/pushed.diff
 6. ✅ Implementation log updated with final status

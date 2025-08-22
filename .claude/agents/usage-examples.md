@@ -53,7 +53,6 @@ pull/
 │   ├── pushed/              # Empty (no existing changes)
 │   ├── staged/              # Empty
 │   ├── unstaged/            # Empty
-│   └── final/               # Empty (no implementation yet)
 ```
 
 #### Step 2: Planning (plan-agent)
@@ -93,7 +92,7 @@ claude --agent hardcode-agent "Apply phase1.diff, validate, then phase2.diff, va
 
 # Expected outputs back in pull/
 pull/code/
-├── final/final.diff         # Complete implementation diff
+├── pushed.diff              # Complete implementation diff
 ├── staged/staged.diff       # What's currently staged
 └── testing/
     ├── reproduce-issue.js   # Script that reproduces original bug
@@ -149,7 +148,7 @@ claude --agent review-agent "Review dark mode implementation plan"
 # 4. Implementation
 claude --agent hardcode-agent "Implement dark mode toggle feature"
 
-# Result: pull/code/final/final.diff shows complete implementation
+# Result: pull/code/pushed.diff shows complete implementation
 # Result: pull/code/testing/ shows theme switching tests
 
 # 5. Final review

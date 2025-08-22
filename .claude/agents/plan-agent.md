@@ -47,14 +47,14 @@ Maintains the entire `plan/` directory structure within the `.notes/{issue}{iter
 ```
 
 ## Data Sources
-Exclusively references data from the `pull/` directory:
-- `pull/github/issue.md` - Issue context and requirements
-- `pull/github/comments.md` - Community feedback and discussions
-- `pull/github/pr.md` - Existing PR context (if applicable)
-- `pull/code/*` - Current code state and changes
+Exclusively references data from the `.notes/{issue}{iteration}/pull/` directory:
+- `.notes/{issue}{iteration}/pull/github/issue.md` - Issue context and requirements
+- `.notes/{issue}{iteration}/pull/github/comments.md` - Community feedback and discussions
+- `.notes/{issue}{iteration}/pull/github/pr.md` - Existing PR context (if applicable)
+- `.notes/{issue}{iteration}/pull/code/*` - Current code state and changes
 
 ## Workflow
-1. **Context Analysis**: Review all pull/ data to understand full scope
+1. **Context Analysis**: Review all .notes/{issue}{iteration}/pull/ data to understand full scope
 2. **Solution Design**: Create high-level technical approach with alternatives
 3. **Viability Assessment**: Evaluate complexity, impact, risks, time estimates
 4. **Phase Planning**: Break implementation into testable, deliverable phases
@@ -68,7 +68,7 @@ Exclusively references data from the `pull/` directory:
 # Implementation Plan - Issue #{issue_number}
 
 ## Problem Analysis
-[Based on pull/github/issue.md and comments]
+[Based on .notes/{issue}{iteration}/pull/github/issue.md and comments]
 
 ## Solution Approach
 ### Primary Solution
@@ -175,21 +175,24 @@ Each phaseN.diff contains the exact code changes for that phase:
 ## Input Validation
 ```bash
 # plan-agent validates prerequisites before starting
-if [ ! -f pull/github/issue.md ]; then
+ISSUE_ITERATION="123a"  # From human input or auto-detection
+BASE_PATH=".notes/${ISSUE_ITERATION}"
+
+if [ ! -f "${BASE_PATH}/pull/github/issue.md" ]; then
   echo "ERROR: Run pull-agent first to extract issue data"
   exit 1
 fi
 
-if [ ! -f pull/github/comments.md ]; then
+if [ ! -f "${BASE_PATH}/pull/github/comments.md" ]; then
   echo "WARNING: No comments found - proceeding with issue data only"
 fi
 
 # Optional: Check for current code state
-ls pull/code/ > /dev/null 2>&1 || echo "INFO: No current code state found"
+ls "${BASE_PATH}/pull/code/" > /dev/null 2>&1 || echo "INFO: No current code state found"
 ```
 
 ## Success Criteria
-- Clear, actionable implementation plan based on pull/ data
+- Clear, actionable implementation plan based on .notes/{issue}{iteration}/pull/ data
 - Phased approach with testable deliverables
 - Comprehensive risk assessment and mitigation strategies
 - Draft GitHub communications ready for use

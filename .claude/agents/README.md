@@ -26,7 +26,7 @@ claude --agent review-agent "Review implementation plan for technical soundness 
 
 # Only proceed if review approved
 claude --agent hardcode-agent "Apply phase1.diff, validate tests pass, then phase2.diff, validate, then phase3.diff"
-# Check: pull/code/final/final.diff created with complete implementation
+# Check: pull/code/pushed.diff created with complete implementation
 
 claude --agent review-agent "Final review - verify implementation meets all original requirements"
 # Check: review/ directory has implementation-review.md with final approval/rejection
@@ -39,7 +39,7 @@ claude --agent review-agent "Final review - verify implementation meets all orig
 | **pull-agent** | Data extraction | GitHub issue/PR | `pull/` directory (source of truth) |
 | **plan-agent** | Strategic planning | `pull/` data | `plan/` directory (implementation strategy) |
 | **review-agent** | Quality assurance | `pull/` + `plan/` data | `review/` directory (go/no-go decisions) |
-| **hardcode-agent** | Code implementation | `plan/` phases | Updates `pull/code/final/` (implemented code) |
+| **hardcode-agent** | Code implementation | `plan/` phases | Updates `pull/code/pushed.diff` (implemented code) |
 
 ## Directory Structure
 
@@ -48,10 +48,9 @@ claude --agent review-agent "Final review - verify implementation meets all orig
 ├── pull/                   # 🏢 SINGLE SOURCE OF TRUTH
 │   ├── github/            # GitHub data (issues, PRs, comments)
 │   └── code/              # Code state tracking
-│       ├── pushed/        # Remote/PR changes
-│       ├── staged/        # Staged changes
-│       ├── unstaged/      # Modified but unstaged
-│       └── final/         # Final implementation
+│       ├── pushed.diff    # Remote/PR changes
+│       ├── staged.diff    # Staged changes
+│       └── unstaged.diff  # Modified but unstaged
 ├── plan/                  # 📋 Strategic planning
 │   ├── github/            # PR drafts, response plans
 │   └── code/              # Implementation plans, phases
@@ -96,7 +95,7 @@ cd .notes/1234/i1
 
 # 2. Extract all data (issues, PRs, current code state)
 claude --agent pull-agent "Extract issue #1234 data and current state"
-# Creates: pull/github/issue.md, pull/code/{pushed,staged,unstaged}/
+# Creates: pull/github/issue.md, pull/code/{pushed,staged,unstaged}.diff
 
 # 3. Create strategic implementation plan
 claude --agent plan-agent "Plan implementation for search autocomplete fix"
@@ -108,7 +107,7 @@ claude --agent review-agent "Review implementation plan"
 
 # 5. Implement the solution phase by phase
 claude --agent hardcode-agent "Implement autocomplete fix following phases"
-# Updates: pull/code/final/final.diff, pull/code/testing/
+# Updates: pull/code/pushed.diff, pull/code/testing/
 
 # 6. Final quality review
 claude --agent review-agent "Final review of implementation"
@@ -120,14 +119,14 @@ claude --agent review-agent "Final review of implementation"
 ```
 Human → pull-agent → Human → plan-agent → Human → review-agent → Human → hardcode-agent → Human
          ↓                     ↓                      ↓                      ↓
-      pull/ data           plan/ data            review/ data        pull/code/final/
+      pull/ data           plan/ data            review/ data        pull/code/pushed.diff
 ```
 
 - **Human Control**: You decide when to run each agent and review outputs
 - **pull-agent**: Extracts and maintains all sources of truth
 - **plan-agent**: Reads pull/, creates implementation plans in plan/
 - **review-agent**: Reviews pull/ and plan/, provides go/no-go decisions
-- **hardcode-agent**: Reads plan/, implements code, updates pull/code/final/
+- **hardcode-agent**: Reads plan/, implements code, updates pull/code/pushed.diff
 
 ## Example Agent Prompts
 

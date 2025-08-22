@@ -32,10 +32,9 @@ Maintains the entire `pull/` directory structure within the `.notes/{issue}{iter
 │   ├── comments.md        # All comments chronologically
 │   └── pr-diffs/          # PR diff files
 ├── code/
-│   ├── pushed/changes.diff    # What's in remote/PR
-│   ├── staged/staged.diff     # Currently staged changes
-│   ├── unstaged/unstaged.diff # Modified but unstaged
-│   └── final/final.diff       # Final implemented changes
+│   ├── pushed.diff    # What's in remote/PR
+│   ├── staged.diff    # Currently staged changes
+│   └── unstaged.diff  # Modified but unstaged
 ```
 
 ## Tools and Capabilities
@@ -61,7 +60,7 @@ All outputs are raw data files in markdown format with clear structure:
 ## Interaction with Other Agents
 - Provides source of truth data that other agents reference
 - Does not consume outputs from other agents
-- Updates `.notes/{issue}{iteration}/pull/code/final/` when hardcode-agent completes implementation
+- Updates `.notes/{issue}{iteration}/pull/code/pushed.diff` when hardcode-agent completes implementation
 - **No direct agent calls**: Only responds to human commands
 
 ## Input Validation
@@ -86,10 +85,10 @@ mkdir -p "${BASE_PATH}/pull/github/pr-diffs"
 gh pr diff {pr_number} > "${BASE_PATH}/pull/github/pr-diffs/pr-{pr_number}.diff"
 
 # Track git states
-mkdir -p "${BASE_PATH}/pull/code/{unstaged,staged,pushed}"
-git diff HEAD > "${BASE_PATH}/pull/code/unstaged/unstaged.diff"
-git diff --cached > "${BASE_PATH}/pull/code/staged/staged.diff"
-git diff origin/main..HEAD > "${BASE_PATH}/pull/code/pushed/changes.diff"
+mkdir -p "${BASE_PATH}/pull/code/"
+git diff HEAD > "${BASE_PATH}/pull/code/unstaged.diff"
+git diff --cached > "${BASE_PATH}/pull/code/staged.diff"
+git diff origin/main..HEAD > "${BASE_PATH}/pull/code/pushed.diff"
 ```
 
 ## Success Criteria

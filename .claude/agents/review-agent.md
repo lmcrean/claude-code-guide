@@ -36,7 +36,7 @@ References data from both `pull/` and `plan/` directories:
 **From pull/ (sources of truth):**
 - `pull/github/issue.md` - Original requirements
 - `pull/github/comments.md` - Stakeholder feedback
-- `pull/code/final/final.diff` - Implemented changes
+- `pull/code/pushed.diff` - Implemented changes
 
 **From plan/ (planning outputs):**
 - `plan/code/implementation-plan.md` - Proposed solution
@@ -181,7 +181,7 @@ if [ ! -f plan/code/implementation-plan.md ]; then
 fi
 
 # For implementation review
-if [ ! -f pull/code/final/final.diff ]; then
+if [ ! -f pull/code/pushed.diff ]; then
   echo "ERROR: Run hardcode-agent first to create implementation"
   exit 1
 fi

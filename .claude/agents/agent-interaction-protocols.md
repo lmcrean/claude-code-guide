@@ -24,10 +24,10 @@ This document defines how the four enterprise repository agents interact, share 
 1. **pull-agent** → extracts and organizes all raw data → `pull/`
 2. **plan-agent** → reads `pull/`, creates plans → `plan/`
 3. **review-agent** → reads `pull/` and `plan/`, reviews solution → `review/`
-4. **hardcode-agent** → reads `plan/`, implements code → updates `pull/code/final/`
+4. **hardcode-agent** → reads `plan/`, implements code → updates `pull/code/pushed.diff`
 
 ### Secondary Data Flow (Feedback Loop)
-- **hardcode-agent** → updates implementation state → `pull/code/final/`
+- **hardcode-agent** → updates implementation state → `pull/code/pushed.diff`
 - **pull-agent** → tracks ongoing state changes → `pull/code/staged/`, `pull/code/unstaged/`
 
 ## Directory Ownership and Access Rights
@@ -41,10 +41,9 @@ This document defines how the four enterprise repository agents interact, share 
 pull/
 ├── github/          # pull-agent writes, all agents read
 ├── code/
-│   ├── pushed/      # pull-agent writes and maintains
-│   ├── staged/      # pull-agent and hardcode-agent write
-│   ├── unstaged/    # pull-agent and hardcode-agent write  
-│   └── final/       # hardcode-agent writes, all agents read
+│   ├── pushed.diff  # pull-agent writes and maintains
+│   ├── staged.diff  # pull-agent and hardcode-agent write
+│   └── unstaged.diff # pull-agent and hardcode-agent write
 ```
 
 ### plan/ Directory
@@ -64,7 +63,7 @@ pull/
 # pull-agent responsibilities
 1. Extract GitHub issue → pull/github/issue.md
 2. Extract PR data → pull/github/pr.md, pull/github/comments.md
-3. Capture current diffs → pull/code/{pushed,staged,unstaged}/
+3. Capture current diffs → pull/code/{pushed,staged,unstaged}.diff
 4. Signal completion → ready for plan-agent
 ```
 
@@ -93,8 +92,8 @@ pull/
 # hardcode-agent workflow
 1. Read plan/code/phases/ for implementation guide
 2. Implement code phase by phase
-3. Update pull/code/staged/ during development
-4. Update pull/code/final/ when complete
+3. Update pull/code/staged.diff during development
+4. Update pull/code/pushed.diff when complete
 5. Create testing artifacts → pull/code/testing/
 6. Signal completion → ready for final review
 ```
@@ -102,7 +101,7 @@ pull/
 ### 5. Final Review (review-agent)
 ```bash
 # review-agent final workflow
-1. Read pull/code/staged/ for implemented changes
+1. Read pull/code/staged.diff for implemented changes
 2. Review implementation against requirements
 3. Create implementation-review.md → review/
 4. Provide final approval/rejection
@@ -125,7 +124,7 @@ Each agent validates prerequisites by checking if required input files exist:
 # review-agent validation  
 - Requires: pull/github/issue.md (original requirements)
 - Requires: plan/code/implementation-plan.md (solution to review)
-- Optional: pull/code/final/final.diff (implementation to review)
+- Optional: pull/code/pushed.diff (implementation to review)
 
 # hardcode-agent validation
 - Requires: plan/code/phases/phases.md (implementation strategy)
@@ -141,7 +140,7 @@ Each agent validates prerequisites by checking if required input files exist:
 
 #### 2. Read-Only Access Pattern
 - Agents read from others' directories but never modify them
-- Exception: hardcode-agent updates pull/code/final/ as agreed handoff
+- Exception: hardcode-agent updates pull/code/pushed.diff as agreed handoff
 
 #### 3. Atomic Updates
 - Agents complete full sections before signaling completion
@@ -175,7 +174,7 @@ human: claude --agent hardcode-agent "Apply phase diffs incrementally"
 
 # Phase 5: Final Review (human checks implementation completed)
 human: claude --agent review-agent "Final review of implementation"
-# review-agent validates pull/code/final/final.diff exists, then reviews
+# review-agent validates pull/code/pushed.diff exists, then reviews
 ```
 
 ### Key Principles
@@ -196,7 +195,7 @@ human: claude --agent review-agent "Final review of implementation"
 # Simple recovery - just delete and re-run
 rm -rf .notes/{issue}/{iteration}/plan/     # Re-run plan-agent
 rm -rf .notes/{issue}/{iteration}/review/   # Re-run review-agent  
-rm -rf pull/code/final/                     # Re-run hardcode-agent
+rm -f pull/code/pushed.diff                # Re-run hardcode-agent
 
 # Or use git for more surgical recovery
 git checkout -- .notes/{issue}/{iteration}/plan/    # Reset planning

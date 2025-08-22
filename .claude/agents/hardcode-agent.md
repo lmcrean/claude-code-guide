@@ -179,5 +179,5 @@ Before marking implementation complete:
 2. ✅ Original issue reproduction script fails (issue fixed)
 3. ✅ New functionality tests pass
 4. ✅ Existing regression tests pass
-5. ✅ Final diff generated and saved to pull/code/pushed.diff
+5. ✅ Final diff generated and saved to .notes/{issue}{iteration}/pull/code/pushed.diff
 6. ✅ Implementation log updated with final status

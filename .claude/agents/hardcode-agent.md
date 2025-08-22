@@ -1,7 +1,6 @@
 ---
-name: "hardcode-agent"
-description: "Code implementation and execution for enterprise repository tickets"
-tools: ["*"]
+name: hardcode-agent
+description: Code implementation and execution for enterprise repository tickets
 ---
 
 # Hardcode Agent

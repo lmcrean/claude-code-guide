@@ -1,7 +1,6 @@
 ---
-name: "review-agent"
-description: "Solution viability analysis and implementation review for enterprise repository tickets"
-tools: ["*"]
+name: review-agent
+description: Solution viability analysis and implementation review for enterprise repository tickets
 ---
 
 # Review Agent

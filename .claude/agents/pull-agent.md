@@ -1,7 +1,6 @@
 ---
-name: "pull-agent"
-description: "Data extraction and source of truth maintenance for enterprise repository tickets"
-tools: ["*"]
+name: pull-agent
+description: Data extraction and source of truth maintenance for enterprise repository tickets
 ---
 
 # Pull Agent

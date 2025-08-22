@@ -1,11 +1,6 @@
 ---
-name: "plan-agent"
-description: "Strategic planning and GitHub response coordination for enterprise repository tickets"
-tools: ["*"]
-file_restrictions:
-  can_write: [".md", ".diff"]
-  write_location: "plan/"
-  cannot_modify: "source code files outside plan/ directory"
+name: plan-agent
+description: Strategic planning and GitHub response coordination for enterprise repository tickets
 ---
 
 # Plan Agent

@@ -89,7 +89,7 @@ review/
 #### Step 4: Implementation (hardcode-agent)
 ```bash
 # Command  
-claude --agent hardcode-agent "Implement search autocomplete fix following phases"
+claude --agent hardcode-agent "Apply phase1.diff, validate, then phase2.diff, validate, then phase3.diff"
 
 # Expected outputs back in pull/
 pull/code/

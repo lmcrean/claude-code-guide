@@ -121,6 +121,27 @@ pull/code/
 - **Produces**: Final implementation artifacts in pull/code/final/
 - **Reviewed by**: review-agent evaluates implementation quality
 - **Coordinates with**: pull-agent for final state tracking
+- **No direct agent calls**: Only responds to human commands
+
+## Input Validation
+```bash
+# hardcode-agent validates prerequisites before starting
+if [ ! -f plan/code/phases/phases.md ]; then
+  echo "ERROR: Run plan-agent first to create phase implementation plan"
+  exit 1
+fi
+
+# Check for phase diffs
+if ! ls plan/code/phases/phase*.diff > /dev/null 2>&1; then
+  echo "ERROR: No phase diffs found. Run plan-agent to create phase*.diff files"
+  exit 1
+fi
+
+# Optional: Check for implementation plan context
+if [ ! -f plan/code/implementation-plan.md ]; then
+  echo "WARNING: No implementation plan found - proceeding with phases only"
+fi
+```
 
 ## Tools and Capabilities
 - Full development environment access

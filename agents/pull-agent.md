@@ -54,6 +54,14 @@ All outputs are raw data files in markdown format with clear structure:
 - Provides source of truth data that other agents reference
 - Does not consume outputs from other agents
 - Updates `pull/code/final/` when hardcode-agent completes implementation
+- **No direct agent calls**: Only responds to human commands
+
+## Input Validation
+```bash
+# pull-agent has minimal prerequisites - extracts from external sources
+# Validates access to GitHub API and git repository
+# No dependency on other agent outputs
+```
 
 ## Key Commands
 ```bash

@@ -110,28 +110,27 @@ pull/
 
 ## Inter-Agent Communication Protocols
 
-### Status Signaling
-Each agent signals completion and readiness through standardized status files:
+### Input Validation
+Each agent validates prerequisites by checking if required input files exist:
 
 ```bash
-# Agent completion signals
-.notes/{issue}/{iteration}/
-├── .status/
-│   ├── pull-complete        # pull-agent finished
-│   ├── plan-complete        # plan-agent finished
-│   ├── review-approved      # review-agent approved plan
-│   ├── implementation-complete  # hardcode-agent finished
-│   └── final-review-complete    # review-agent final approval
-```
+# pull-agent validation (minimal - mostly external data sources)
+# No file prerequisites - extracts from GitHub/git
 
-### Error and Blocking Protocols
-```bash
-# Error handling
-.status/
-├── pull-blocked             # pull-agent cannot proceed
-├── plan-needs-revision      # plan-agent needs more data
-├── review-rejected          # review-agent rejected plan/implementation
-└── implementation-blocked   # hardcode-agent blocked on implementation
+# plan-agent validation
+- Requires: pull/github/issue.md (issue context)
+- Requires: pull/github/comments.md (stakeholder input)
+- Optional: pull/code/* (current state)
+
+# review-agent validation  
+- Requires: pull/github/issue.md (original requirements)
+- Requires: plan/code/implementation-plan.md (solution to review)
+- Optional: pull/code/final/final.diff (implementation to review)
+
+# hardcode-agent validation
+- Requires: plan/code/phases/phases.md (implementation strategy)
+- Requires: plan/code/phases/phase*.diff (exact changes to apply)
+- Optional: plan/code/implementation-plan.md (context)
 ```
 
 ### Data Consistency Rules
@@ -154,34 +153,36 @@ Each agent signals completion and readiness through standardized status files:
 
 ## Workflow Orchestration
 
-### Sequential Execution Model
-```python
-def enterprise_ticket_workflow(issue_number, iteration):
-    # Phase 1: Data Extraction
-    pull_agent.extract_data(issue_number)
-    wait_for_status('pull-complete')
-    
-    # Phase 2: Planning
-    plan_agent.create_plan(pull_data)
-    wait_for_status('plan-complete')
-    
-    # Phase 3: Plan Review
-    review_agent.review_plan(pull_data, plan_data)
-    wait_for_status('review-approved')
-    
-    # Phase 4: Implementation
-    hardcode_agent.implement(plan_data)
-    wait_for_status('implementation-complete')
-    
-    # Phase 5: Final Review
-    review_agent.final_review(pull_data, implementation_data)
-    wait_for_status('final-review-complete')
+### Human-Orchestrated Sequential Model
+The workflow is controlled entirely by humans calling one agent at a time:
+
+```bash
+# Phase 1: Data Extraction
+human: claude --agent pull-agent "Extract issue #1234 data"
+# pull-agent completes and reports back
+
+# Phase 2: Planning (human checks pull/ directory has data)
+human: claude --agent plan-agent "Create implementation plan"
+# plan-agent validates pull/github/issue.md exists, then proceeds
+
+# Phase 3: Plan Review (human checks plan/ directory has content)
+human: claude --agent review-agent "Review implementation plan"
+# review-agent validates required files exist, then provides go/no-go
+
+# Phase 4: Implementation (human proceeds only if review approved)
+human: claude --agent hardcode-agent "Apply phase diffs incrementally"
+# hardcode-agent validates plan/code/phases/ exists, then implements
+
+# Phase 5: Final Review (human checks implementation completed)
+human: claude --agent review-agent "Final review of implementation"
+# review-agent validates pull/code/final/final.diff exists, then reviews
 ```
 
-### Parallel Execution Opportunities
-- pull-agent can update ongoing state while hardcode-agent implements
-- review-agent can provide interim feedback during implementation phases
-- plan-agent can refine GitHub responses based on implementation progress
+### Key Principles
+- **Human Control**: Human decides when to run each agent and in what sequence
+- **No Agent-to-Agent Calls**: Agents never directly invoke other agents
+- **File-Based Validation**: Agents check input file existence rather than status signals
+- **Clear Reporting**: Each agent reports completion and next recommended steps
 
 ## Error Recovery and Rollback
 
@@ -192,10 +193,14 @@ def enterprise_ticket_workflow(issue_number, iteration):
 
 ### Recovery Protocols
 ```bash
-# Rollback commands
+# Simple recovery - just delete and re-run
+rm -rf .notes/{issue}/{iteration}/plan/     # Re-run plan-agent
+rm -rf .notes/{issue}/{iteration}/review/   # Re-run review-agent  
+rm -rf pull/code/final/                     # Re-run hardcode-agent
+
+# Or use git for more surgical recovery
 git checkout -- .notes/{issue}/{iteration}/plan/    # Reset planning
 git checkout -- .notes/{issue}/{iteration}/review/  # Reset reviews
-git reset pull/code/final/                          # Reset implementation
 ```
 
 ## Success Metrics

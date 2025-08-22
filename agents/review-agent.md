@@ -158,7 +158,28 @@ Technical analysis of code changes:
 - **Consumes**: Data from pull-agent (pull/ directory)
 - **Consumes**: Plans from plan-agent (plan/ directory)
 - **Provides**: Quality gates for implementation decisions
-- **Blocks**: Implementation progression until review passes
+- **No direct agent calls**: Only responds to human commands
+
+## Input Validation
+```bash
+# review-agent validates prerequisites before starting
+if [ ! -f pull/github/issue.md ]; then
+  echo "ERROR: Run pull-agent first to extract issue requirements"
+  exit 1
+fi
+
+# For plan review
+if [ ! -f plan/code/implementation-plan.md ]; then
+  echo "ERROR: Run plan-agent first to create implementation plan"
+  exit 1
+fi
+
+# For implementation review
+if [ ! -f pull/code/final/final.diff ]; then
+  echo "ERROR: Run hardcode-agent first to create implementation"
+  exit 1
+fi
+```
 
 ## Success Criteria
 - Comprehensive review of solution approach and implementation

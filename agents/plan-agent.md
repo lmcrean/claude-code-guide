@@ -156,6 +156,23 @@ Each phaseN.diff contains the exact code changes for that phase:
 - **Consumes**: All data from pull-agent (pull/ directory)
 - **Feeds**: review-agent (plan/ outputs for validation)
 - **Feeds**: hardcode-agent (implementation guidance from phases/)
+- **No direct agent calls**: Only responds to human commands
+
+## Input Validation
+```bash
+# plan-agent validates prerequisites before starting
+if [ ! -f pull/github/issue.md ]; then
+  echo "ERROR: Run pull-agent first to extract issue data"
+  exit 1
+fi
+
+if [ ! -f pull/github/comments.md ]; then
+  echo "WARNING: No comments found - proceeding with issue data only"
+fi
+
+# Optional: Check for current code state
+ls pull/code/ > /dev/null 2>&1 || echo "INFO: No current code state found"
+```
 
 ## Success Criteria
 - Clear, actionable implementation plan based on pull/ data

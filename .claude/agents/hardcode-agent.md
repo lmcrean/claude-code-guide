@@ -124,7 +124,7 @@ All implementation outputs are saved back to .notes/{issue}{iteration}/pull/ for
 
 ## Interaction with Other Agents
 - **Consumes**: Implementation plans from plan-agent
-- **Produces**: Final implementation artifacts in pull/code/pushed.diff
+- **Produces**: Final implementation artifacts in .notes/{issue}{iteration}/pull/code/pushed.diff
 - **Reviewed by**: review-agent evaluates implementation quality
 - **Coordinates with**: pull-agent for final state tracking
 - **No direct agent calls**: Only responds to human commands
@@ -132,19 +132,22 @@ All implementation outputs are saved back to .notes/{issue}{iteration}/pull/ for
 ## Input Validation
 ```bash
 # hardcode-agent validates prerequisites before starting
-if [ ! -f plan/code/phases/phases.md ]; then
+ISSUE_ITERATION="123a"  # From human input or auto-detection
+BASE_PATH=".notes/${ISSUE_ITERATION}"
+
+if [ ! -f "${BASE_PATH}/plan/code/phases/phases.md" ]; then
   echo "ERROR: Run plan-agent first to create phase implementation plan"
   exit 1
 fi
 
 # Check for phase diffs
-if ! ls plan/code/phases/phase*.diff > /dev/null 2>&1; then
+if ! ls "${BASE_PATH}/plan/code/phases/phase*.diff" > /dev/null 2>&1; then
   echo "ERROR: No phase diffs found. Run plan-agent to create phase*.diff files"
   exit 1
 fi
 
 # Optional: Check for implementation plan context
-if [ ! -f plan/code/implementation-plan.md ]; then
+if [ ! -f "${BASE_PATH}/plan/code/implementation-plan.md" ]; then
   echo "WARNING: No implementation plan found - proceeding with phases only"
 fi
 ```
@@ -161,7 +164,7 @@ fi
 - All planned phases implemented successfully
 - Tests pass and validate the solution
 - Original issue requirements fulfilled
-- Final implementation artifacts saved to pull/code/pushed.diff
+- Final implementation artifacts saved to .notes/{issue}{iteration}/pull/code/pushed.diff
 - Implementation ready for review-agent evaluation
 
 ## Error Handling and Recovery

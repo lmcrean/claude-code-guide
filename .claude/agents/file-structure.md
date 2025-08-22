@@ -16,10 +16,9 @@ All agent work is organized under the `.notes/{issue}{iteration}/` directory str
     │   │   ├── comments.md
     │   │   └── pr-diffs/
     │   └── code/
-    │       ├── pushed/changes.diff
-    │       ├── staged/staged.diff
-    │       ├── unstaged/unstaged.diff
-    │       ├── final/final.diff
+    │       ├── pushed.diff
+    │       ├── staged.diff
+    │       ├── unstaged.diff
     │       └── testing/
     ├── plan/                     # Strategic planning (plan-agent)
     │   ├── github/
@@ -86,7 +85,7 @@ plan/code/phases/phases.md    # Missing .notes/{issue}{iteration}/
 
 ### hardcode-agent
 - Reads from `.notes/{issue}{iteration}/plan/` for implementation guidance
-- Updates `.notes/{issue}{iteration}/pull/code/final/` with implemented changes
+- Updates `.notes/{issue}{iteration}/pull/code/pushed.diff` with implemented changes
 - Does not create its own directory structure
 
 ## Directory Creation Rules

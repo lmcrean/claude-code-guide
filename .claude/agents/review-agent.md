@@ -20,10 +20,12 @@ Solution viability analysis and implementation review for enterprise repository 
 **Quality Assurance** - This agent acts as a critical reviewer, identifying potential issues, gaps, and improvements before implementation or after completion.
 
 ## File Structure Responsibilities
-Maintains the entire `review/` directory structure:
+Maintains the entire `review/` directory structure within the `.notes/{issue}{iteration}/` system.
+
+**CRITICAL**: Always work within `.notes/{issue}{iteration}/review/` structure. See `.claude/agents/file-structure.md` for complete specification.
 
 ```
-review/
+.notes/{issue}{iteration}/review/
 ├── solution-review.md        # Analysis of plan-agent's solution approach
 ├── implementation-review.md  # Review of hardcode-agent's implementation
 ├── diff-analysis.md         # Technical analysis of code changes
@@ -31,17 +33,17 @@ review/
 ```
 
 ## Data Sources
-References data from both `pull/` and `plan/` directories:
+References data from both `.notes/{issue}{iteration}/pull/` and `.notes/{issue}{iteration}/plan/` directories:
 
-**From pull/ (sources of truth):**
-- `pull/github/issue.md` - Original requirements
-- `pull/github/comments.md` - Stakeholder feedback
-- `pull/code/pushed.diff` - Implemented changes
+**From .notes/{issue}{iteration}/pull/ (sources of truth):**
+- `.notes/{issue}{iteration}/pull/github/issue.md` - Original requirements
+- `.notes/{issue}{iteration}/pull/github/comments.md` - Stakeholder feedback
+- `.notes/{issue}{iteration}/pull/code/pushed.diff` - Implemented changes
 
-**From plan/ (planning outputs):**
-- `plan/code/implementation-plan.md` - Proposed solution
-- `plan/code/viability-assessment.md` - Initial assessment
-- `plan/code/phases/` - Implementation phases
+**From .notes/{issue}{iteration}/plan/ (planning outputs):**
+- `.notes/{issue}{iteration}/plan/code/implementation-plan.md` - Proposed solution
+- `.notes/{issue}{iteration}/plan/code/viability-assessment.md` - Initial assessment
+- `.notes/{issue}{iteration}/plan/code/phases/` - Implementation phases
 
 ## Review Types
 
@@ -169,19 +171,22 @@ Technical analysis of code changes:
 ## Input Validation
 ```bash
 # review-agent validates prerequisites before starting
-if [ ! -f pull/github/issue.md ]; then
+ISSUE_ITERATION="123a"  # From human input or auto-detection
+BASE_PATH=".notes/${ISSUE_ITERATION}"
+
+if [ ! -f "${BASE_PATH}/pull/github/issue.md" ]; then
   echo "ERROR: Run pull-agent first to extract issue requirements"
   exit 1
 fi
 
 # For plan review
-if [ ! -f plan/code/implementation-plan.md ]; then
+if [ ! -f "${BASE_PATH}/plan/code/implementation-plan.md" ]; then
   echo "ERROR: Run plan-agent first to create implementation plan"
   exit 1
 fi
 
 # For implementation review
-if [ ! -f pull/code/pushed.diff ]; then
+if [ ! -f "${BASE_PATH}/pull/code/pushed.diff" ]; then
   echo "ERROR: Run hardcode-agent first to create implementation"
   exit 1
 fi

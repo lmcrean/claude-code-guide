@@ -23,27 +23,27 @@ Code implementation and execution for enterprise repository tickets. This agent 
 ## Data Sources
 References planning data and contributes implementation data:
 
-**Consumes from plan/:**
-- `plan/code/implementation-plan.md` - Technical approach
-- `plan/code/phases/phases.md` - Phase overview and validation strategy
-- `plan/code/phases/phase1.diff, phase2.diff, phase3.diff` - Exact diffs to implement
-- `plan/code/viability-assessment.md` - Implementation constraints
+**Consumes from .notes/{issue}{iteration}/plan/:**
+- `.notes/{issue}{iteration}/plan/code/implementation-plan.md` - Technical approach
+- `.notes/{issue}{iteration}/plan/code/phases/phases.md` - Phase overview and validation strategy
+- `.notes/{issue}{iteration}/plan/code/phases/phase1.diff, phase2.diff, phase3.diff` - Exact diffs to implement
+- `.notes/{issue}{iteration}/plan/code/viability-assessment.md` - Implementation constraints
 
-**Updates in pull/:**
-- `pull/code/pushed.diff` - Complete implementation changes
-- `pull/code/staged/staged.diff` - Currently staged work
-- `pull/code/unstaged/unstaged.diff` - Work in progress
+**Updates in .notes/{issue}{iteration}/pull/:**
+- `.notes/{issue}{iteration}/pull/code/pushed.diff` - Complete implementation changes
+- `.notes/{issue}{iteration}/pull/code/staged.diff` - Currently staged work
+- `.notes/{issue}{iteration}/pull/code/unstaged.diff` - Work in progress
 
 ## Implementation Workflow
 
 ### 1. Phase-by-Phase Implementation
 ```markdown
-For each phase in plan/code/phases/:
+For each phase in .notes/{issue}{iteration}/plan/code/phases/:
 1. Read phases.md to understand validation requirements
 2. Apply the specific phaseN.diff for current phase
 3. Validate implementation meets phase criteria
 4. Run tests and verify functionality works
-5. Update pull/code/staged.diff with current progress
+5. Update .notes/{issue}{iteration}/pull/code/staged.diff with current progress
 6. STOP and validate before moving to next phase
 
 Phase Implementation Process:
@@ -68,10 +68,10 @@ Phase Implementation Process:
 ## File Management Strategy
 
 ### Implementation Artifacts
-All implementation outputs are saved back to pull/ for truth tracking:
+All implementation outputs are saved back to .notes/{issue}{iteration}/pull/ for truth tracking:
 
 ```
-pull/code/
+.notes/{issue}{iteration}/pull/code/
 ├── pushed.diff               # Complete implementation (hardcode-agent output)
 ├── staged.diff               # Currently staged changes (hardcode-agent managed)
 ├── unstaged.diff             # Work in progress (hardcode-agent managed)

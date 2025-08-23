@@ -74,7 +74,14 @@
       "Bash(go:*)",
       "Bash(./build/ci-scripts/assert-no-diff.sh:*)"
     ],
-    "deny": [],
+    "deny": [
+      "git commit",
+      "git push", 
+      "git commit -m",
+      "git commit --amend",
+      "git push origin",
+      "git push --force"
+    ],
     "ask": []
   }
 }

@@ -80,3 +80,17 @@ check the pushed.diff file is not bloated with external merged commits
 │   ├── staged.diff    # What's staged
 ```
 
+---
+
+*pull-agent pull failed run logs to i2*
+
+Pulls all failed CI run logs from the PR's checks and saves them as individual log files:
+
+```
+.notes/{issue}/i2/pull/runs/
+├── code_gen_17109559216.log
+├── lint_17109559195.log
+├── run_tests_postgresql14_17109559199.log
+├── run_tests_postgresql15_17109559199.log
+└── run_tests_postgresql16_17109559199.log
+```

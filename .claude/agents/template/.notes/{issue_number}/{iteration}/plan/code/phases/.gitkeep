@@ -1,4 +1,0 @@
-# Phases directory structure:
-# - phases.md: Overview of all phases and validation strategy
-# - phase1.diff, phase2.diff, phase3.diff: Exact diffs for each phase
-# - Each phase builds incrementally and must pass validation before proceeding

@@ -23,20 +23,21 @@ Strategic planning and GitHub response coordination for enterprise repository ti
 ## File Structure Responsibilities
 Maintains the entire `plan/` directory structure within the `.notes/{issue}{iteration}/` system.
 
-**CRITICAL**: Always work within `.notes/{issue}{iteration}/plan/` structure. See `.claude/agents/file-structure.md` for complete specification.
+**CRITICAL**: Always work within `.notes/{issue}{iteration}/plan/` structure.
 
 ```
-.notes/{issue}{iteration}/plan/
+.notes/{issue}{iteration}/plan/ # e.g. .notes/2353/i3/plan
 ├── github/
 │   ├── pr-draft.md           # Complete PR description draft
 │   └── comment-responses.md  # Planned responses to comments/reviews
 └── code/
-    ├── implementation-plan.md    # High-level technical approach
+    ├── implementation-plan.md    # High-level technical approach (completed before phases)
     ├── viability-assessment.md   # Complexity, impact, time estimates
     └── phases/
-        ├── phases.md             # Overview of all phases and validation strategy
+        ├── phases.md             # Overview of all phases and validation strategy (completed before executing diffs)
         ├── phase1.diff           # Exact diff for phase 1 implementation
         ├── phase2.diff           # Exact diff for phase 2 implementation
         ├── phase3.diff           # Exact diff for phase 3 implementation
         └── ...
 ```
+

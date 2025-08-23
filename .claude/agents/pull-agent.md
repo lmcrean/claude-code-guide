@@ -21,15 +21,14 @@ Data extraction and source of truth maintenance for enterprise repository ticket
 ## File Structure Responsibilities
 Maintains the entire `pull/` directory structure within the `.notes/{issue}{iteration}/` system.
 
-**CRITICAL**: Always work within `.notes/{issue}{iteration}/pull/` structure. See `.claude/agents/file-structure.md` for complete specification.
+**CRITICAL**: Always work within `.notes/{issue}{iteration}/pull/` structure.
 
 ```
-.notes/{issue}{iteration}/pull/
+.notes/{issue}/{iteration}/pull/ # e.g. .notes/2353/i3/pull
 ├── github/
-│   ├── issue.md           # Raw issue data
+│   ├── {issue}.md           # Raw issue data
 │   ├── pr.md              # Raw PR data
 │   ├── comments.md        # All comments chronologically
-│   └── pr-diffs/          # PR diff files
 ├── code/
 │   ├── pushed.diff    # What's in remote/PR
 │   ├── staged.diff    # Currently staged changes
@@ -49,3 +48,35 @@ The agent automatically uses the GitHub token from `.env` file in the project ro
 API_GITHUB_TOKEN=secretkey
 ```
 This provides increased GitHub API rate limits for data extraction operations.
+
+## pulling diff files to pushed.diff
+
+when pulling diff files often the user pulls merge commits, so make sure to filter only for commits made by the user
+
+check the pushed.diff file is not bloated with external merged commits
+
+
+## Common prompts
+
+*pull-agent pull latest gh and code from the pr and output to i2*
+
+```
+.notes/{issue}/i2/pull/
+├── github/
+│   ├── {issue}.md           # Raw issue data
+│   ├── pr.md              # Raw PR data
+│   ├── comments.md        # All comments chronologically
+├── code/
+│   ├── pushed.diff    # What's in remote/PR
+```
+
+---
+
+*pull-agent pull staged changes from the pr and output to i4*
+
+```
+.notes/{issue}/i4/pull/
+├── code/
+│   ├── staged.diff    # What's staged
+```
+

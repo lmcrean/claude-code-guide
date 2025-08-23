@@ -21,10 +21,10 @@ Solution viability analysis and implementation review for enterprise repository 
 ## File Structure Responsibilities
 Maintains the entire `review/` directory structure within the `.notes/{issue}{iteration}/` system.
 
-**CRITICAL**: Always work within `.notes/{issue}{iteration}/review/` structure. See `.claude/agents/file-structure.md` for complete specification.
+**CRITICAL**: Always work within `.notes/{issue}{iteration}/review/` structure.
 
 ```
-.notes/{issue}{iteration}/review/
+.notes/{issue}/{iteration}/review/ # e.g. .notes/2353/i3/review/
 ├── solution-review.md        # Analysis of plan-agent's solution approach
 ├── implementation-review.md  # Review of hardcode-agent's implementation
 ├── diff-analysis.md         # Technical analysis of code changes
